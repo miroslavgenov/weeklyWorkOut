@@ -1,0 +1,8 @@
+running normal
+running slow
+running hit
+running fast
+jumping front
+jumping side
+jumping back
+glute walk

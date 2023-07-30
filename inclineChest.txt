@@ -1,0 +1,13 @@
+incline barbell bench press
+include dumbbell bench press
+incline one arm dumbbell bench press
+incline flyes
+include one arm flyes
+incline hight dumbell bench press
+incline hight one arm dumbell bench press
+incline hight flyes
+incline hight one arm flyes
+incline low dumbell bench press
+incline low one arm dumbell bench press
+incline low dumbell flyes
+incline low one arm dumbell flyes

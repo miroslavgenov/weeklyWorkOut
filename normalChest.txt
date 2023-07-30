@@ -1,0 +1,5 @@
+normall barbell bench press
+normall dumbbell bench press
+normall one arm dumbbell bench press
+normall dumbbell flyes
+normall one arm dumbbell flyes
