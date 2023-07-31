@@ -177,7 +177,7 @@ public class WeeklyWorkOut {
 	public void chaneTheMuscleGroupMusclesStructureForEachWorkOutBasedOnMusclePriority() {
 		int workOutNmber = 0;
 		for (WorkOut wc : getWorkOuts()) {
-			System.out.println("WorkOut" + workOutNmber);
+			// System.out.println("WorkOut" + workOutNmber);
 			wc.countMusclesOccurancesFromEachMuscleGroupAndChangeMuscleGroupMuscleStructure(MuscleGroupUtil.muscleGroups);
 			workOutNmber += 1;
 		}

@@ -12,12 +12,12 @@ public class WeeklyWorkOutUtil {
     
     static ArrayList<Integer> pickHowMuchEachMuscleGroupToBeHitDuringTheWeekAndSortDESC(int muscleGroupSize, int weeklyWorkOutSize){
         ArrayList<Integer> x = pickHowMuchEachMuscleGroupToBeHitDuringTheWeek(muscleGroupSize, weeklyWorkOutSize);
-        sortTheHitFrequencyBasedOnDescendingOrder(x);
+        sortTheHitFrequencyDESC(x);
 
         return x;
     }
 
-    static void sortTheHitFrequencyBasedOnDescendingOrder(ArrayList<Integer> hitFrequency){
+    static void sortTheHitFrequencyDESC(ArrayList<Integer> hitFrequency){
         Collections.sort(hitFrequency,(o1, o2) -> o2 - o1);
     }
 

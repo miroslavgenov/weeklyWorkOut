@@ -63,7 +63,7 @@ public class MuscleGroupUtil {
         private MuscleGroupUtil() {
         }
 
-        public static int whichIsTheIndexOfTheMuscleGroup(String muscleGroupName) {
+        public static int getMuscleGroupIndex(String muscleGroupName) {
                 for (int i = 0; i < muscleGroups.size(); i++) {
                         if (muscleGroupName == muscleGroups.get(i).getMuscleGroupName()) {
                                 return i;
@@ -72,6 +72,7 @@ public class MuscleGroupUtil {
 
                 return -1;
         }
+
 
         public static MuscleGroup createMuscleGroupWithMuscles(String muscleGroupName, ArrayList<Muscle> muscles) {
                 return new MuscleGroup(muscleGroupName, muscles);
@@ -82,21 +83,36 @@ public class MuscleGroupUtil {
                 return new MuscleGroup(muscleGroupName, muscleGroupPriority, muscles);
         }
 
-        public static ArrayList<Integer> countMuscles(MuscleGroup ethalonMuscleGroup ,MuscleGroup targetMuscleGroup){
-                ArrayList<Integer> countedMuscles = new ArrayList<Integer>();
+        public static ArrayList<ArrayList<Integer>> countMusclesForEachMuscleGroup(ArrayList<MuscleGroup> muscleGroups) { 
+                ArrayList<ArrayList<Integer>> musclesCountedFromEachMuscleGroup = new ArrayList<ArrayList<Integer>>();
 
-                for(int i=0; i < ethalonMuscleGroup.getMuscleGroupSize(); i++){
-                        countedMuscles.add(0);
+                for(int i = 0; i< muscleGroups.size();i++){
+                        musclesCountedFromEachMuscleGroup.add(countMuscles(muscleGroups.get(i)));
+                }
 
-                        for(int j = 0; j< targetMuscleGroup.getMuscleGroupSize(); j++){
-                                if( ethalonMuscleGroup.getMuscles().get(i).getMuscleName() == targetMuscleGroup.getMuscles().get(j).getMuscleName() ){
-                                        int prevCount = countedMuscles.get(i);
-                                        countedMuscles.set(i,prevCount);
+                return musclesCountedFromEachMuscleGroup;
+        }
+
+        public static ArrayList<Integer> countMuscles(MuscleGroup targetMuscleGroup){
+                ArrayList<Integer> musclesCounted = new ArrayList<Integer>();
+
+                int ethalonMuscleGroupIndex = getMuscleGroupIndex(targetMuscleGroup.getMuscleGroupName());
+                MuscleGroup ethalonMuscleGroup = muscleGroups.get(ethalonMuscleGroupIndex);
+                
+                for(int i = 0; i <ethalonMuscleGroup.getMuscleGroupSize(); i++){
+                        String eMuscle = ethalonMuscleGroup.getMuscles().get(i).getMuscleName();
+                        musclesCounted.add(0);
+
+                        for(int j = 0; j < targetMuscleGroup.getMuscleGroupSize(); j++){
+                                String tMuscle = targetMuscleGroup.getMuscles().get(j).getMuscleName();
+                                if( eMuscle == tMuscle ){
+                                        int newResult = musclesCounted.get(i) + 1;
+                                        musclesCounted.set(i,newResult);
                                 }
                         }
                 }
 
-                return countedMuscles;
+                return musclesCounted;
         }
 
         

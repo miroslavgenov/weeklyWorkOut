@@ -2,6 +2,8 @@ package main;
 
 import workout.WeeklyWorkOut;
 import workout.WeeklyWorkOutUtil;
+import muscles.MuscleGroup;
+import muscles.MuscleGroupUtil;
 
 public class Main {
 
@@ -11,6 +13,8 @@ public class Main {
 		WeeklyWorkOutUtil.generateWeeklyWorkOut(weeklyWorkOut);
 		// weeklyWorkOut.show();
 		System.out.println(weeklyWorkOut);
+		
+		
 
 	}
 }

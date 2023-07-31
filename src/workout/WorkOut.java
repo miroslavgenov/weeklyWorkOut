@@ -8,7 +8,7 @@ import exercise.Exercise;
 import muscles.Muscle;
 import muscles.MuscleGroup;
 import muscles.MuscleGroupUtil;
-import muscles.MuscleOccurrence;
+
 
 public class WorkOut {
 
@@ -249,8 +249,7 @@ public class WorkOut {
 	// clean
 	public void countMusclesOccurancesFromEachMuscleGroupAndChangeMuscleGroupMuscleStructure(
 			ArrayList<MuscleGroup> ethalonMuscleGroups) {
-		ArrayList<ArrayList<Integer>> musclesCountedForEachmMuscleGroup = new MuscleOccurrence()
-				.countMusclesForEachMuscleGroup(getMuscleGroupsToWorkOut());
+		ArrayList<ArrayList<Integer>> musclesCountedForEachmMuscleGroup = MuscleGroupUtil.countMusclesForEachMuscleGroup(getMuscleGroupsToWorkOut());
 
 		reverseSortTwoDimentional(musclesCountedForEachmMuscleGroup);
 
@@ -261,7 +260,7 @@ public class WorkOut {
 
 	public void changeTheStructureOfeachMuscleGroup(int muscleGroupIndex, ArrayList<Integer> musclesOccurance) {
 		int ethalonMuscleGroupIndex = MuscleGroupUtil
-				.whichIsTheIndexOfTheMuscleGroup(getMuscleGroupsToWorkOut().get(muscleGroupIndex).getMuscleGroupName());
+				.getMuscleGroupIndex(getMuscleGroupsToWorkOut().get(muscleGroupIndex).getMuscleGroupName());
 		ArrayList<Muscle> ethalonMuscles = MuscleGroupUtil.muscleGroups.get(ethalonMuscleGroupIndex).getMuscles();
 		changeMuscleGroupMusclesBasedOnPriorityOccurance(ethalonMuscles, musclesOccurance, muscleGroupIndex);
 	}
