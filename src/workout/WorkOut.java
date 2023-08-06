@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import exercise.Exercise;
+import exercise.ExerciseUtil;
 import muscles.Muscle;
 import muscles.MuscleGroup;
 import muscles.MuscleGroupUtil;
@@ -180,39 +181,41 @@ public class WorkOut {
 
 	public void setRandomExerciseForMuscleInMuscleGroup(int muscleGroupIndex, int muscleIndex) {
 		Muscle mc = getMuscleGroupsToWorkOut().get(muscleGroupIndex).muscles.get(muscleIndex);
-		Exercise ex = randomlyBuildExerciseForMuscle(mc);
+		Exercise ex = 
+		ExerciseUtil.randomlyBuildExercise(mc);
+		// randomlyBuildExerciseForMuscle(mc);
 		mc.setMuscleExercise(new Exercise(ex.getExerciseName(), ex.getExerciseSet(), ex.getExerciseReps()));
 	}
 
-	public Exercise randomlyBuildExerciseForMuscle(Muscle muscle) {
-		Exercise exercise = new Exercise();
-		setExerciseNameSetReps(exercise, muscle);
-		return exercise;
-	}
+	// public Exercise randomlyBuildExerciseForMuscle(Muscle muscle) {
+	// 	Exercise exercise = new Exercise();
+	// 	setExerciseNameSetReps(exercise, muscle);
+	// 	return exercise;
+	// }
 
-	void setExerciseNameSetReps(Exercise exercise, Muscle muscle) {
-		exercise.setExerciseName(pickRandomExerciseNameForMuscle(muscle));
-		exercise.setExerciseSet(pickRandomNumber(1, 4));
-		exercise.setExerciseReps(pickRandomReps(exercise.getExerciseSet()));
-	}
+	// void setExerciseNameSetReps(Exercise exercise, Muscle muscle) {
+	// 	exercise.setExerciseName(pickRandomExerciseNameForMuscle(muscle));
+	// 	exercise.setExerciseSet(pickRandomNumber(1, 4));
+	// 	exercise.setExerciseReps(pickRandomReps(exercise.getExerciseSet()));
+	// }
 
-	public String pickRandomExerciseNameForMuscle(Muscle muscle) {
-		int randomExerciseIndex = pickRandomNumber(0, muscle.getMuscleExerciseLoaderExerciseNamesSize());
+	// public String pickRandomExerciseNameForMuscle(Muscle muscle) {
+	// 	int randomExerciseIndex = pickRandomNumber(0, muscle.getTheSizeOfTheLoadedExercises());
 
-		String pickedExerciseName = muscle.getMuscleExerciseLoader().getExerciseNames().get(randomExerciseIndex);
+	// 	String pickedExerciseName = muscle.getMuscleExerciseLoader().getExerciseNames().get(randomExerciseIndex);
 
-		return pickedExerciseName;
-	}
+	// 	return pickedExerciseName;
+	// }
 
-	public ArrayList<Integer> pickRandomReps(int set) {
-		ArrayList<Integer> reps = new ArrayList<Integer>();
+	// public ArrayList<Integer> pickRandomReps(int set) {
+	// 	ArrayList<Integer> reps = new ArrayList<Integer>();
 
-		for (int i = 0; i < set; i++) {
-			reps.add(pickRandomNumber(6, 13));
-		}
+	// 	for (int i = 0; i < set; i++) {
+	// 		reps.add(pickRandomNumber(6, 13));
+	// 	}
 
-		return reps;
-	}
+	// 	return reps;
+	// }
 
 	public int pickRandomNumber(int startNumber, int endNumber) {
 		int randomNumber = new Random().nextInt(startNumber, endNumber);
@@ -252,33 +255,10 @@ public class WorkOut {
 		ArrayList<ArrayList<Integer>> musclesCountedForEachmMuscleGroup = MuscleGroupUtil.countMusclesForEachMuscleGroup(getMuscleGroupsToWorkOut());
 
 		reverseSortTwoDimentional(musclesCountedForEachmMuscleGroup);
-
-		for (int i = 0; i < getMuscleGroupsToWorkOutSize(); i++) {
-			changeTheStructureOfeachMuscleGroup(i, musclesCountedForEachmMuscleGroup.get(i));
+		
+		for(int i=0;i<getMuscleGroupsToWorkOutSize();i++){
+			MuscleGroupUtil.changeMuscleGroupStructure(getMuscleGroupsToWorkOut().get(i), musclesCountedForEachmMuscleGroup.get(i) );
 		}
-	}
-
-	public void changeTheStructureOfeachMuscleGroup(int muscleGroupIndex, ArrayList<Integer> musclesOccurance) {
-		int ethalonMuscleGroupIndex = MuscleGroupUtil
-				.getMuscleGroupIndex(getMuscleGroupsToWorkOut().get(muscleGroupIndex).getMuscleGroupName());
-		ArrayList<Muscle> ethalonMuscles = MuscleGroupUtil.muscleGroups.get(ethalonMuscleGroupIndex).getMuscles();
-		changeMuscleGroupMusclesBasedOnPriorityOccurance(ethalonMuscles, musclesOccurance, muscleGroupIndex);
-	}
-
-	public void changeMuscleGroupMusclesBasedOnPriorityOccurance(ArrayList<Muscle> ethalonMuscles,
-			ArrayList<Integer> muscleOccurancesCount, int muscleGroupIndexToChange) {
-		getMuscleGroupsToWorkOut().get(muscleGroupIndexToChange).initializeMuscles();
-
-		for (int i = 0; i < ethalonMuscles.size(); i++) {
-			for (int j = 0; j < muscleOccurancesCount.get(i); j++) {
-				addMuscleToMuscleGroup(ethalonMuscles.get(i), getMuscleGroupsToWorkOut().get(muscleGroupIndexToChange));
-			}
-		}
-	}
-
-	public void addMuscleToMuscleGroup(Muscle muscle, MuscleGroup muscleGroup) {
-		muscleGroup
-				.addMuscle(new Muscle(muscle.getMuscleName(), muscle.getMusclePriority(), muscle.getMuscleExercise()));
 	}
 
 	public void sortMuscleGroupsExercisesBasedOnSet() {

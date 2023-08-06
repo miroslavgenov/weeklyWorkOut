@@ -76,7 +76,7 @@ public class Muscle  {
 		System.out.println(getMuscleExercise());	
     }
 
-	public int getMuscleExerciseLoaderExerciseNamesSize() {
+	public int getTheSizeOfTheLoadedExercises() {
 		return getMuscleExerciseLoader().getExerciseNamesSize();
 	}
 

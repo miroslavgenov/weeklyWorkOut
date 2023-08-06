@@ -115,5 +115,19 @@ public class MuscleGroupUtil {
                 return musclesCounted;
         }
 
-        
+        public static void changeMuscleGroupStructure(MuscleGroup muscleGroup, ArrayList<Integer> howMuchEachMuscleToBeInTheNewStructure){                
+                int ethalonMuscleGroupIndex = getMuscleGroupIndex(muscleGroup.getMuscleGroupName());
+                MuscleGroup ethalonMuscleGroup = muscleGroups.get(ethalonMuscleGroupIndex);
+
+                muscleGroup.initializeMuscles();
+
+                for(int i=0;i<howMuchEachMuscleToBeInTheNewStructure.size();i++){
+                        for(int j=0;j<howMuchEachMuscleToBeInTheNewStructure.get(i);j++){
+                                Muscle muscle = ethalonMuscleGroup.getMuscles().get(i);
+                                muscleGroup.addMuscle(new Muscle(muscle.getMuscleName(), muscle.getMusclePriority(), muscle.getMuscleExercise()));
+
+                        }
+                }
+
+        }        
 }
