@@ -22,6 +22,8 @@ public class Muscle  {
 		muscleExercise = new Exercise(ex.getExerciseName(),ex.getExerciseSet(),ex.getExerciseReps());
 	}
 
+	public Muscle(){}
+
 	public Muscle(String muscleName, int musclePriority, Exercise muscleExercise){
 		setMuscleName(muscleName);
 		setMusclePriority(musclePriority);

@@ -137,6 +137,7 @@ public class WorkOut {
 		}
 	}
 
+	// muscleGroupUtil
 	public void setRandmlyMusclesToTrainForMuscleGroupBasedOnMuscleGroupExerciseNumber(int muscleGroupIndex) {
 		MuscleGroup muscleGroup = getMuscleGroupsToWorkOut().get(muscleGroupIndex);
 		ArrayList<Muscle> musclesToTrain = pickRandomMuscles(muscleGroup);
@@ -149,16 +150,18 @@ public class WorkOut {
 
 	public ArrayList<Muscle> pickRandomMuscles(MuscleGroup muscleGroup) {
 		ArrayList<Muscle> musclesToTrain = new ArrayList<Muscle>();
+		ArrayList<Muscle> pickedRandomMuscles = MuscleGroupUtil.pickRandomMuscles(muscleGroup.getMuscleGroupName(), muscleGroup.getMuscleGroupNumberOfExercises());
 
-		addRandomMuscleBasedOnMuscleGroupNumberOfExercise(musclesToTrain, muscleGroup);
+		addMusclesToList(musclesToTrain, pickedRandomMuscles);
+		
 
 		return musclesToTrain;
 	}
 
-	public void addRandomMuscleBasedOnMuscleGroupNumberOfExercise(ArrayList<Muscle> save, MuscleGroup muscleGroup) {
-		for (int i = 0; i < muscleGroup.getMuscleGroupNumberOfExercises(); i++) {
-			Muscle muscle = muscleGroup.getMuscles().get(pickRandomNumber(0, muscleGroup.getMuscleGroupSize()));
-			save.add(new Muscle(muscle.getMuscleName(), muscle.getMusclePriority(), muscle.getMuscleExercise()));
+	public void addMusclesToList(ArrayList<Muscle> listToAddMuscles, ArrayList<Muscle> muscles){
+		for(int i=0;i<muscles.size();i++){
+			Muscle muscle = muscles.get(i);
+			listToAddMuscles.add(new Muscle(muscle.getMuscleName(), muscle.getMusclePriority(), muscle.getMuscleExercise()));
 		}
 	}
 
@@ -187,35 +190,6 @@ public class WorkOut {
 		mc.setMuscleExercise(new Exercise(ex.getExerciseName(), ex.getExerciseSet(), ex.getExerciseReps()));
 	}
 
-	// public Exercise randomlyBuildExerciseForMuscle(Muscle muscle) {
-	// 	Exercise exercise = new Exercise();
-	// 	setExerciseNameSetReps(exercise, muscle);
-	// 	return exercise;
-	// }
-
-	// void setExerciseNameSetReps(Exercise exercise, Muscle muscle) {
-	// 	exercise.setExerciseName(pickRandomExerciseNameForMuscle(muscle));
-	// 	exercise.setExerciseSet(pickRandomNumber(1, 4));
-	// 	exercise.setExerciseReps(pickRandomReps(exercise.getExerciseSet()));
-	// }
-
-	// public String pickRandomExerciseNameForMuscle(Muscle muscle) {
-	// 	int randomExerciseIndex = pickRandomNumber(0, muscle.getTheSizeOfTheLoadedExercises());
-
-	// 	String pickedExerciseName = muscle.getMuscleExerciseLoader().getExerciseNames().get(randomExerciseIndex);
-
-	// 	return pickedExerciseName;
-	// }
-
-	// public ArrayList<Integer> pickRandomReps(int set) {
-	// 	ArrayList<Integer> reps = new ArrayList<Integer>();
-
-	// 	for (int i = 0; i < set; i++) {
-	// 		reps.add(pickRandomNumber(6, 13));
-	// 	}
-
-	// 	return reps;
-	// }
 
 	public int pickRandomNumber(int startNumber, int endNumber) {
 		int randomNumber = new Random().nextInt(startNumber, endNumber);

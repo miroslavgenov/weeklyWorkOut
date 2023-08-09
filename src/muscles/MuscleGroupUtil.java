@@ -2,6 +2,7 @@ package muscles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 
 
@@ -129,5 +130,29 @@ public class MuscleGroupUtil {
                         }
                 }
 
-        }        
+        }
+
+        public static Muscle pickRandomMuscle(String muscleGroup){
+                
+                int ethalonMuscleGroupIndex = getMuscleGroupIndex(muscleGroup);
+                MuscleGroup ethalonMuscleGroup = muscleGroups.get(ethalonMuscleGroupIndex);
+
+                int randomMuscleIndex = new Random().nextInt(0, ethalonMuscleGroup.getMuscleGroupSize());
+                
+                Muscle pickedMuscle = ethalonMuscleGroup.getMuscles().get(randomMuscleIndex);
+                
+
+                return pickedMuscle;
+        }
+
+        public static ArrayList<Muscle> pickRandomMuscles(String muscleGroup, int numberOfMusclesToBePicked){
+                ArrayList<Muscle> pickedMuscles = new ArrayList<Muscle>();
+
+                for(int i=0;i<numberOfMusclesToBePicked;i++){
+                        Muscle picked = pickRandomMuscle(muscleGroup);
+                        pickedMuscles.add(new Muscle(picked.getMuscleName(), picked.getMusclePriority(), picked.getMuscleExercise()));
+                }
+
+                return pickedMuscles;
+        }
 }
